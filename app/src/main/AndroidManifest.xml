@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.apdef.tandurapps">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,13 +13,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.planting.PlantingMyPackagePaymentConfirmActivity"></activity>
+        <activity android:name=".ui.planting.PlantingMyPackageDetailActivity" />
+        <activity android:name=".ui.planting.PlantingMyPackageActivity" />
+        <activity android:name=".ui.profile.ChangeAddressActivity" />
+        <activity
+            android:name=".ui.planting.PlantingPaymentConfirmActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".ui.planting.PlantingPaymentActivity" />
+        <activity android:name=".ui.planting.PlantingDetailActivity" />
+        <activity
+            android:name=".ui.auth.RegisterActivity"
+            android:theme="@style/HiddenTitleTheme" />
+        <activity
+            android:name=".ui.auth.LoginActivity"
+            android:theme="@style/HiddenTitleTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/HiddenTitleTheme" />
     </application>
 
 </manifest>
