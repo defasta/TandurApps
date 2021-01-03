@@ -1,5 +1,6 @@
-package com.apdef.tandurapps.ui.planting
+package com.apdef.tandurapps.ui.home
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,11 +12,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apdef.tandurapps.R
 import com.apdef.tandurapps.model.PlantingPackage
-import com.apdef.tandurapps.ui.planting.adapter.PlantingPackageAdapter
+import com.apdef.tandurapps.storage.SharedPref
+import com.apdef.tandurapps.ui.home.adapter.PlantingPackageAdapter
+import com.bumptech.glide.Glide
 import com.google.firebase.database.*
-import kotlinx.android.synthetic.main.fragment_planting.*
+import kotlinx.android.synthetic.main.fragment_home.*
 
 class PlantingFragment : Fragment() {
+    private lateinit var pref : SharedPref
     lateinit var dbRef: DatabaseReference
     private var listPlantingPackage = ArrayList<PlantingPackage>()
     override fun onCreateView(
@@ -23,16 +27,20 @@ class PlantingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_planting, container, false)
+        return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         dbRef = FirebaseDatabase.getInstance().getReference("planting")
         getPlantingPackage()
-        cardView.setOnClickListener {
-            startActivity(Intent(context, PlantingMyPackageActivity::class.java))
-        }
+        pref = SharedPref(activity!!.applicationContext)
+        loadProfilePicture()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadProfilePicture()
     }
 
     private fun getPlantingPackage(){
@@ -63,7 +71,15 @@ class PlantingFragment : Fragment() {
             override fun itemOnClicked(plantingPackage: PlantingPackage) {
                 startActivity(Intent(context, PlantingDetailActivity::class.java).putExtra(PlantingDetailActivity.EXTRA_PLANTING_PACKAGE, plantingPackage))
             }
-
         })
+    }
+
+    private fun loadProfilePicture(){
+        val imageUrl = pref.getValues("imageProfileUrl")
+        if (imageUrl!=null){
+            Glide.with(this)
+                .load(imageUrl)
+                .into(img_profile)
+        }
     }
 }

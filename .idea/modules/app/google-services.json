@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "833672440130",
+    "firebase_url": "https://tandurapps.firebaseio.com",
+    "project_id": "tandurapps",
+    "storage_bucket": "tandurapps.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:833672440130:android:4beb405609e168b74300db",
+        "android_client_info": {
+          "package_name": "com.apdef.tandurapps"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "833672440130-idlfs2sq7l8624a90tut5aiga67b144v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.apdef.tandurapps",
+            "certificate_hash": "197e0e99b93e9e896a1c658c31de39ad29456c6c"
+          }
+        },
+        {
+          "client_id": "833672440130-s9epkukg01sv4slq04pu2c2ojretca9n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCa3kKirWtzmuNQL4E727ow284WaIiZ2J0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "833672440130-s9epkukg01sv4slq04pu2c2ojretca9n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

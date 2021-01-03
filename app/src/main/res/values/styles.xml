@@ -7,6 +7,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
+        <item name="android:fontFamily">@font/custom_font</item>
 
     </style>
 
@@ -21,4 +22,8 @@
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
     </style>
+
+<!--    <style name="montserratFont" parent="@android:style/TextAppearance.Small">-->
+<!--       -->
+<!--    </style>-->
 </resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/plantingFragment"
+        android:icon="@drawable/ic_baseline_eco_24"
+        android:title="Tanam"/>
+    <item
+        android:id="@+id/sellFragment"
+        android:icon="@drawable/ic_baseline_attach_money_24"
+        android:title="Jual"/>
+    <item
+        android:id="@+id/profileFragment"
+        android:icon="@drawable/ic_baseline_account_circle_24"
+        android:title="Profile"/>
+</menu>
