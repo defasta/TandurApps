@@ -3,6 +3,7 @@ package com.apdef.tandurapps.ui.auth
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import com.apdef.tandurapps.MainActivity
 import com.apdef.tandurapps.R
@@ -61,6 +62,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun saveUser(username:String, email: String, password: String) {
+        progressbar_register.visibility = View.VISIBLE
         mAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener {
                 if (it.isSuccessful) {
@@ -82,6 +84,7 @@ class RegisterActivity : AppCompatActivity() {
                                 pref.setValues("kelurahan", data.kelurahan.toString())
                                 pref.setValues("kodepos", data.kodepos.toString())
                                 pref.setValues("additionalAddress", data.additionalAddress.toString())
+                                progressbar_register.visibility = View.INVISIBLE
                                 val i = Intent(this@RegisterActivity, MainActivity::class.java)
                                 startActivity(i)
                                 Toast.makeText(applicationContext, "Selamat Datang", Toast.LENGTH_LONG).show()
@@ -89,6 +92,7 @@ class RegisterActivity : AppCompatActivity() {
                         }
 
                         override fun onCancelled(p0: DatabaseError) {
+                            progressbar_register.visibility = View.INVISIBLE
                             Toast.makeText(this@RegisterActivity, "Autentikasi Gagal", Toast.LENGTH_LONG).show()
                         }
 
@@ -96,6 +100,7 @@ class RegisterActivity : AppCompatActivity() {
 
 
                 }else{
+                    progressbar_register.visibility = View.INVISIBLE
                     Toast.makeText(this@RegisterActivity, "Autentikasi Gagal", Toast.LENGTH_LONG).show()
                 }
             }

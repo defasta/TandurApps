@@ -18,6 +18,10 @@ class MyPackageDetailActivity : AppCompatActivity() {
 
         val transaction = intent.getParcelableExtra(EXTRA_PLANTING_PACKAGE)  as Transaction
         showPlantingMyPackageDetail(transaction)
+
+        iv_back.setOnClickListener {
+            onBackPressed()
+        }
     }
 
     private fun showPlantingMyPackageDetail(transaction: Transaction){

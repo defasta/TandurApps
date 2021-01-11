@@ -23,6 +23,10 @@ class PlantingDetailActivity : AppCompatActivity() {
         btn_buy.setOnClickListener {
             startActivity(Intent(this, PlantingPaymentActivity::class.java).putExtra(PlantingPaymentActivity.EXTRA_PLANTING_PACKAGE, plantingData))
         }
+
+        iv_back.setOnClickListener {
+            onBackPressed()
+        }
     }
 
     private fun showPlantingDetail(plantingData : PlantingPackage){

@@ -44,6 +44,7 @@ class PlantingFragment : Fragment() {
     }
 
     private fun getPlantingPackage(){
+        progressbar_home.visibility = View.VISIBLE
         dbRef.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 listPlantingPackage.clear()
@@ -51,10 +52,13 @@ class PlantingFragment : Fragment() {
                     val plantingPackage = getDataSnapshot.getValue(PlantingPackage::class.java)
                     listPlantingPackage.add(plantingPackage!!)
                 }
+                progressbar_home.visibility = View.INVISIBLE
                 showListPlantingPackage(listPlantingPackage)
+
             }
 
             override fun onCancelled(error: DatabaseError) {
+                progressbar_home.visibility = View.INVISIBLE
                 Toast.makeText(context, ""+ error.message, Toast.LENGTH_LONG).show()
             }
 

@@ -3,6 +3,7 @@ package com.apdef.tandurapps.ui.auth
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import com.apdef.tandurapps.MainActivity
 import com.apdef.tandurapps.R
@@ -60,6 +61,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun login(email:String, password:String){
+        progressbar_login.visibility = View.VISIBLE
         mAuth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener {
                 if(it.isSuccessful){
@@ -79,6 +81,7 @@ class LoginActivity : AppCompatActivity() {
                                 pref.setValues("kodepos", user.kodepos.toString())
                                 pref.setValues("additionalAddress", user.additionalAddress.toString())
                                 pref.setValues("imageProfileUrl", user.imageUrl.toString())
+                                progressbar_login.visibility = View.INVISIBLE
                                 val i = Intent(this@LoginActivity, MainActivity::class.java)
                                 startActivity(i)
                                 Toast.makeText(this@LoginActivity, "Welcome!", Toast.LENGTH_LONG).show()
@@ -86,43 +89,20 @@ class LoginActivity : AppCompatActivity() {
                         }
 
                         override fun onCancelled(p0: DatabaseError) {
+                            progressbar_login.visibility = View.INVISIBLE
                             Toast.makeText(this@LoginActivity, "Gagal menyimpan data", Toast.LENGTH_LONG).show()
                         }
 
                     })
                 }else{
+                    progressbar_login.visibility = View.INVISIBLE
                     Toast.makeText(this@LoginActivity, "Autentikasi Gagal", Toast.LENGTH_LONG).show()
                 }
             }
 
     }
 
-//    private fun saveUser(token:String){
-//        val data = User()
-//        db = FirebaseDatabase.getInstance().getReference("user")
-//        db.child(token).addValueEventListener(object: ValueEventListener {
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//                val user = snapshot.getValue(User::class.java)
-//                if (user==null){
-//                    db.child(token).setValue(data)
-//                    pref.setValues("username", data.username.toString())
-//                    pref.setValues("email", data.email.toString())
-//                    pref.setValues("kecamatan", data.kecamatan.toString())
-//                    pref.setValues("kelurahan", data.kelurahan.toString())
-//                    pref.setValues("kodepos", data.kodepos.toString())
-//                    pref.setValues("additionalAddress", data.additionalAddress.toString())
-//                    val i = Intent(this@LoginActivity, MainActivity::class.java)
-//                    startActivity(i)
-//                    Toast.makeText(this@LoginActivity, "Welcome!", Toast.LENGTH_LONG).show()
-//                }
-//            }
-//
-//            override fun onCancelled(p0: DatabaseError) {
-//                Toast.makeText(this@LoginActivity, "Gagal menyimpan data", Toast.LENGTH_LONG).show()
-//            }
-//
-//        })
-//    }
+
 
     override fun onBackPressed() {
         super.onBackPressed()

@@ -109,6 +109,10 @@ class PlantingPaymentConfirmActivity : AppCompatActivity(), PermissionListener {
             btn_take_camera.visibility = View.VISIBLE
             btn_upload_bukti.visibility = View.VISIBLE
         }
+
+        iv_back.setOnClickListener {
+            onBackPressed()
+        }
     }
 
     override fun onBackPressed() {
@@ -218,27 +222,22 @@ class PlantingPaymentConfirmActivity : AppCompatActivity(), PermissionListener {
     private fun addUploadRecordToDb(time: String, uri: String){
         val userAuth = mAuth.currentUser
         val token  = userAuth?.uid.toString()
-//        val db = FirebaseFirestore.getInstance()
         val db = FirebaseDatabase.getInstance().getReference("buktiPembayaran")
         val data = HashMap<String, Any>()
         data["imageUrl"] = uri
 
-//        db.collection("posts")
-//            .add(data)
-//            .addOnSuccessListener {
-//                Toast.makeText(applicationContext, "Bukti pembayaran telah diupload", Toast.LENGTH_SHORT).show()
-//            }
-//            .addOnFailureListener {
-//                Toast.makeText(applicationContext, "gagal upload ke database", Toast.LENGTH_SHORT).show()
-//            }
+
+        progressbar_planting_payment.visibility = View.VISIBLE
         db.child(token).addValueEventListener(object :ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 db.child(token).child(time).setValue(data)
+                progressbar_planting_payment.visibility = View.INVISIBLE
                 Toast.makeText(applicationContext, "Bukti pembayaran telah diupload", Toast.LENGTH_LONG).show()
                 startActivity(Intent(this@PlantingPaymentConfirmActivity, MainActivity::class.java))
             }
 
             override fun onCancelled(error: DatabaseError) {
+                progressbar_planting_payment.visibility = View.INVISIBLE
                 Toast.makeText(applicationContext, "gagal upload ke database", Toast.LENGTH_SHORT).show()
             }
 

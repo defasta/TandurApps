@@ -3,6 +3,8 @@ package com.apdef.tandurapps.ui.manage.history
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.apdef.tandurapps.R
 import com.apdef.tandurapps.model.DataSell
@@ -20,9 +22,13 @@ class HistoryActivity : AppCompatActivity() {
         dbRef = FirebaseDatabase.getInstance().getReference("sell")
 
         getHistory()
+        iv_back.setOnClickListener {
+            onBackPressed()
+        }
     }
 
     private fun getHistory(){
+        progressbar_history.visibility = View.VISIBLE
         mAuth = FirebaseAuth.getInstance()
         var currentUser = mAuth.currentUser
         val token = currentUser?.uid.toString()
@@ -33,11 +39,13 @@ class HistoryActivity : AppCompatActivity() {
                     val dataSellFromFirebase = getDataSnapshot.getValue(DataSell::class.java)
                     listHistory.add(dataSellFromFirebase!!)
                 }
+                progressbar_history.visibility = View.INVISIBLE
                 showListHistory(listHistory)
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                progressbar_history.visibility = View.INVISIBLE
+                Toast.makeText(this@HistoryActivity, "Gagal menyimpan data", Toast.LENGTH_LONG).show()
             }
 
         }))

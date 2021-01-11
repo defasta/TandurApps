@@ -2,6 +2,7 @@ package com.apdef.tandurapps.ui.manage.price
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.apdef.tandurapps.R
@@ -39,6 +40,7 @@ class PriceActivity : AppCompatActivity() {
     }
 
     private fun getPriceList(){
+        progressbar_price.visibility = View.VISIBLE
         dbRef = FirebaseDatabase.getInstance().getReference("price").child("list")
         dbRef.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -47,10 +49,12 @@ class PriceActivity : AppCompatActivity() {
                     val priceListFromFirebase = getDataSnapshot.getValue(PriceList::class.java)
                     listPrice.add(priceListFromFirebase!!)
                 }
+                progressbar_price.visibility = View.INVISIBLE
                 showPriceList(listPrice)
             }
 
             override fun onCancelled(error: DatabaseError) {
+                progressbar_price.visibility = View.INVISIBLE
                 Toast.makeText(this@PriceActivity, ""+ error.message, Toast.LENGTH_LONG).show()
             }
 

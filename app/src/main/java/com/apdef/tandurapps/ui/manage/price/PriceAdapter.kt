@@ -28,7 +28,7 @@ class PriceAdapter(val priceList: ArrayList<PriceList>):RecyclerView.Adapter<Pri
     inner class PriceListVH(itemView: View):RecyclerView.ViewHolder(itemView){
         fun bind(data: PriceList){
             itemView.tv_title_product.text = data.name
-            itemView.tv_price_product.text = data.price.toString()
+            itemView.tv_price_product.text = "Rp. "+data.price.toString()
             Glide.with(itemView).load(data.image).into(itemView.iv_product)
         }
     }

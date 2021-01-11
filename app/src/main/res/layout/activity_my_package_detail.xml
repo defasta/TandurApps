@@ -122,8 +122,8 @@
 
     <ImageView
         android:id="@+id/iv_back"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="14dp"
+        android:layout_height="13dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
         android:src="@drawable/ic_baseline_arrow_back_24"

@@ -66,6 +66,10 @@ class ChangeProfilePicture : AppCompatActivity() {
         btn_save.setOnClickListener {
             uploadImage()
         }
+
+        iv_back.setOnClickListener {
+            onBackPressed()
+        }
     }
 
     private fun launchGallery(){
@@ -101,6 +105,7 @@ class ChangeProfilePicture : AppCompatActivity() {
     }
 
     private fun uploadImage(){
+        progressbar_change_profile.visibility = View.VISIBLE
         val userAuth = mAuth.currentUser
         val token  = userAuth?.uid.toString()
         if (filePath !=null){
@@ -117,14 +122,18 @@ class ChangeProfilePicture : AppCompatActivity() {
             }).addOnCompleteListener { task ->
                 if (task.isSuccessful){
                     val downloadUri = task.result
+                    progressbar_change_profile.visibility = View.INVISIBLE
                     addUploadRecordToDb(downloadUri.toString())
                 }else{
+                    progressbar_change_profile.visibility = View.INVISIBLE
                     Toast.makeText(this, "failed task", Toast.LENGTH_SHORT).show()
                 }
             }.addOnFailureListener {
+                progressbar_change_profile.visibility = View.INVISIBLE
                 Toast.makeText(this, "failed", Toast.LENGTH_SHORT).show()
             }
         }else{
+            progressbar_change_profile.visibility = View.INVISIBLE
             Toast.makeText(this, "Mohon pilih foto", Toast.LENGTH_LONG).show()
         }
     }
@@ -135,6 +144,7 @@ class ChangeProfilePicture : AppCompatActivity() {
         val db = FirebaseDatabase.getInstance().getReference("user")
         val data = HashMap<String, Any>()
         data["imageUrl"] = uri
+
 
         db.child(token).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -149,11 +159,13 @@ class ChangeProfilePicture : AppCompatActivity() {
                     pref.setValues("imageProfileUrl", user.imageUrl.toString())
                     pref.setValues("username", user.username.toString())
                 }
+
                 Toast.makeText(this@ChangeProfilePicture, "Foto Profil telah disimpan", Toast.LENGTH_LONG).show()
                 finish()
             }
 
             override fun onCancelled(error: DatabaseError) {
+
                 Toast.makeText(this@ChangeProfilePicture, "gagal upload ke database", Toast.LENGTH_SHORT).show()
             }
 

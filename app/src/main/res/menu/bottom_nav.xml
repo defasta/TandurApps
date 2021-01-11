@@ -7,7 +7,7 @@
     <item
         android:id="@+id/sellFragment"
         android:icon="@drawable/ic_baseline_attach_money_24"
-        android:title="Jual"/>
+        android:title="Kelola"/>
     <item
         android:id="@+id/profileFragment"
         android:icon="@drawable/ic_baseline_account_circle_24"

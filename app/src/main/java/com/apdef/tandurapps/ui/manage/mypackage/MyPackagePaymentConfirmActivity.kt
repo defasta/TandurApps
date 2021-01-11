@@ -100,6 +100,10 @@ class MyPackagePaymentConfirmActivity : AppCompatActivity(), PermissionListener 
             btn_take_camera.visibility = View.VISIBLE
             btn_upload_bukti.visibility = View.VISIBLE
         }
+
+        iv_back.setOnClickListener {
+            onBackPressed()
+        }
     }
 
     private fun launchGallery(){
@@ -209,14 +213,17 @@ class MyPackagePaymentConfirmActivity : AppCompatActivity(), PermissionListener 
         val db = FirebaseDatabase.getInstance().getReference("buktiPembayaran")
         val data = HashMap<String, Any>()
         data["imageUrl"] = uri
+        progressbar_package_confirm.visibility = View.VISIBLE
         db.child(token).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 db.child(token).child(time).setValue(data)
+                progressbar_package_confirm.visibility = View.INVISIBLE
                 Toast.makeText(applicationContext, "Bukti pembayaran telah diupload", Toast.LENGTH_LONG).show()
                 startActivity(Intent(this@MyPackagePaymentConfirmActivity, MainActivity::class.java))
             }
 
             override fun onCancelled(error: DatabaseError) {
+                progressbar_package_confirm.visibility = View.INVISIBLE
                 Toast.makeText(applicationContext, "gagal upload ke database", Toast.LENGTH_SHORT).show()
             }
 

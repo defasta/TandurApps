@@ -3,6 +3,7 @@ package com.apdef.tandurapps.ui.manage.mypackage
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.apdef.tandurapps.R
@@ -27,9 +28,14 @@ class MyPackageActivity : AppCompatActivity() {
 
 
         getPlantingMyPackage()
+
+        iv_back.setOnClickListener {
+            onBackPressed()
+        }
     }
 
     private fun getPlantingMyPackage(){
+        progressbar_mypackage.visibility = View.VISIBLE
         val userAuth = mAuth.currentUser
         val token  = userAuth?.uid.toString()
         dbRef.child(token).addValueEventListener(object : ValueEventListener{
@@ -39,10 +45,12 @@ class MyPackageActivity : AppCompatActivity() {
                     val plantingMyPackage = getDataSnapshot.getValue(com.apdef.tandurapps.model.Transaction::class.java)
                     listPlantingMyPackage.add(plantingMyPackage!!)
                 }
+                progressbar_mypackage.visibility = View.INVISIBLE
                 showListPlantingMyPackage(listPlantingMyPackage)
             }
 
             override fun onCancelled(error: DatabaseError) {
+                progressbar_mypackage.visibility = View.INVISIBLE
                 Toast.makeText(applicationContext, ""+ error.message, Toast.LENGTH_LONG).show()
             }
 

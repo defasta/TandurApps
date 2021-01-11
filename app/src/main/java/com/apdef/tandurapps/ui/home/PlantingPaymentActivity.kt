@@ -20,6 +20,7 @@ import org.json.JSONException
 import retrofit2.Call
 import retrofit2.Callback
 import android.widget.ArrayAdapter
+import kotlinx.android.synthetic.main.activity_price.*
 import retrofit2.Response
 import java.io.IOException
 import kotlin.collections.ArrayList
@@ -48,13 +49,16 @@ class PlantingPaymentActivity : AppCompatActivity() {
         tv_add.text = pref.getValues("additionalAddress")
         tv_price.text = "Rp. "+plantingData.price.toString()
         showPaymentMethod(listPaymentMethod)
-        btnChangeAddress.setOnClickListener {
-            startActivity(Intent(this, ChangeAddressActivity::class.java))
-        }
+//        btnChangeAddress.setOnClickListener {
+//            startActivity(Intent(this, ChangeAddressActivity::class.java))
+//        }
         btn_buy.setOnClickListener {
             getTime(plantingData)
         }
 
+        iv_back.setOnClickListener {
+            onBackPressed()
+        }
     }
 
     override fun onResume() {
@@ -109,7 +113,6 @@ class PlantingPaymentActivity : AppCompatActivity() {
         })
 
 
-
     }
     private fun getTime(plantingData : PlantingPackage){
         RetrofitClient.instance.getTime("XAEEV5QFFFLL", "json", "zone", "Asia/Jakarta" )
@@ -148,6 +151,7 @@ class PlantingPaymentActivity : AppCompatActivity() {
         var currentUser = mAuth.currentUser
         val token = currentUser?.uid.toString()
 
+        progressbar_planting.visibility = View.VISIBLE
         db.child(token).addValueEventListener(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 db.child(token).child(time).child("name").setValue(plantingData.name)
@@ -163,6 +167,7 @@ class PlantingPaymentActivity : AppCompatActivity() {
                 db.child(token).child(time).child("addressAdditional").setValue(pref.getValues("additionalAddress").toString())
                 db.child(token).child(time).child("paymentMethod").setValue(paymentMethodChoosen)
                 db.child(token).child(time).child("paymentMethodCode").setValue(paymentMethodCodeChoosen)
+                progressbar_price.visibility = View.INVISIBLE
                 Toast.makeText(applicationContext, "Transaksi berhasil", Toast.LENGTH_LONG).show()
                 val i = Intent(this@PlantingPaymentActivity, PlantingPaymentConfirmActivity::class.java)
                 i.putExtra(PlantingPaymentConfirmActivity.EXTRA_PAYMENT, choosenListPaymentMethod)
@@ -172,6 +177,7 @@ class PlantingPaymentActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
+                progressbar_price.visibility = View.INVISIBLE
                 Toast.makeText(applicationContext, "Tidak dapat melakukan transaksi, coba lagi", Toast.LENGTH_LONG).show()
             }
 

@@ -8,5 +8,5 @@ class User{
     var kelurahan: String? = ""
     var kodepos: String? =""
     var additionalAddress: String? =""
-    var imageUrl: String = ""
+    var imageUrl: String? = ""
 }

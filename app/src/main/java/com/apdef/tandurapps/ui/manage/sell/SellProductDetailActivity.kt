@@ -99,6 +99,10 @@ class SellProductDetailActivity : AppCompatActivity(), PermissionListener {
                 .withListener(this)
                 .check()
         }
+
+        iv_back.setOnClickListener {
+            onBackPressed()
+        }
     }
 
     override fun onResume() {

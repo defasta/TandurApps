@@ -5,6 +5,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import com.apdef.tandurapps.MainActivity
 import com.apdef.tandurapps.R
@@ -60,6 +61,9 @@ class SellConfirmActivity : AppCompatActivity() {
             getTime(dataSell)
         }
 
+        iv_back.setOnClickListener {
+            onBackPressed()
+        }
     }
 
 
@@ -133,8 +137,10 @@ class SellConfirmActivity : AppCompatActivity() {
         dataSell.time = time
         dataSell.image = uri.toString()
 
+        progressbar_sell.visibility = View.VISIBLE
         db.child(token).child(time).addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
+                progressbar_sell.visibility = View.INVISIBLE
                 db.child(token).child(time).setValue(dataSell)
                 Toast.makeText(this@SellConfirmActivity, "Data berhasil dikirim", Toast.LENGTH_LONG).show()
                 finishAffinity()
