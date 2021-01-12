@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginBottom="16dp"
     xmlns:tools="http://schemas.android.com/tools">
 
 
@@ -49,7 +50,6 @@
                             android:textColor="@color/colorWhite"
                             android:textSize="20sp"
                             android:textStyle="bold"
-                            app:layout_constraintEnd_toStartOf="@+id/cardView2"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             tools:ignore="MissingConstraints" />
@@ -65,7 +65,6 @@
                             android:textColor="@color/colorWhite"
                             android:textStyle="italic"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/cardView2"
                             app:layout_constraintHorizontal_bias="0.0"
                             app:layout_constraintStart_toStartOf="parent"
                             tools:ignore="MissingConstraints" />
