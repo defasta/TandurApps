@@ -63,11 +63,12 @@
 
 
                         <TextView
-                            android:id="@+id/tv_komposisi"
+                            android:id="@+id/tv_info_product"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="16dp"
                             android:text="Pupuk Kandang,\nBatang bayam,\nPlant bag"
+                            android:textAlignment="textEnd"
                             android:textColor="@color/colorPrimary"
                             android:textSize="12sp"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -124,7 +125,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/tv_info_product"
+                        android:id="@+id/tv_penjelasan_produk"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"

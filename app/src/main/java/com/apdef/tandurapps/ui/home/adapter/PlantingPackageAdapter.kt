@@ -32,6 +32,7 @@ class PlantingPackageAdapter (val plantingPackage: ArrayList<PlantingPackage>):R
             itemView.tv_title_product.text = data.name.toString()
             itemView.tv_price_product.text = "Rp. " + data.price.toString()
             itemView.tv_info_product.text = data.detail
+            itemView.tv_penjelasan_produk.text = data.info
             Glide.with(itemView).load(data.images).into(itemView.iv_product)
             itemView.setOnClickListener{
                 itemClick?.itemOnClicked(data)

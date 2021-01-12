@@ -151,7 +151,7 @@ class PlantingPaymentActivity : AppCompatActivity() {
         var currentUser = mAuth.currentUser
         val token = currentUser?.uid.toString()
 
-        progressbar_planting.visibility = View.VISIBLE
+
         db.child(token).addValueEventListener(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 db.child(token).child(time).child("name").setValue(plantingData.name)
@@ -167,7 +167,6 @@ class PlantingPaymentActivity : AppCompatActivity() {
                 db.child(token).child(time).child("addressAdditional").setValue(pref.getValues("additionalAddress").toString())
                 db.child(token).child(time).child("paymentMethod").setValue(paymentMethodChoosen)
                 db.child(token).child(time).child("paymentMethodCode").setValue(paymentMethodCodeChoosen)
-                progressbar_price.visibility = View.INVISIBLE
                 Toast.makeText(applicationContext, "Transaksi berhasil", Toast.LENGTH_LONG).show()
                 val i = Intent(this@PlantingPaymentActivity, PlantingPaymentConfirmActivity::class.java)
                 i.putExtra(PlantingPaymentConfirmActivity.EXTRA_PAYMENT, choosenListPaymentMethod)
@@ -177,7 +176,6 @@ class PlantingPaymentActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                progressbar_price.visibility = View.INVISIBLE
                 Toast.makeText(applicationContext, "Tidak dapat melakukan transaksi, coba lagi", Toast.LENGTH_LONG).show()
             }
 

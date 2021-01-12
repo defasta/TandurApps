@@ -164,11 +164,14 @@ class MyPackagePaymentConfirmActivity : AppCompatActivity(), PermissionListener 
                 if (task.isSuccessful){
                     val downloadUri = task.result
                     getTime(downloadUri.toString())
+
 //                    addUploadRecordToDb(downloadUri.toString())
                 }else{
+
                     Toast.makeText(this, "failed task", Toast.LENGTH_SHORT).show()
                 }
             }.addOnFailureListener {
+
                 Toast.makeText(this, "failed", Toast.LENGTH_SHORT).show()
             }
         }else{
@@ -191,17 +194,22 @@ class MyPackagePaymentConfirmActivity : AppCompatActivity(), PermissionListener 
                         try {
                             if (response.code() == 200) {
                                 val time = response.body()?.formatted.toString()
+
                                 addUploadRecordToDb(time, uri)
 
                             } else {
+
                                 Log.e("gagal muat", response.message().toString())
                             }
                         } catch (e: JSONException) {
+
                             Log.e("ERROR JSON", e.printStackTrace().toString())
                         } catch (e: IOException) {
+
                             Log.e("ERROR IO", e.printStackTrace().toString())
                         }
                     }
+                    progressbar_package_confirm.visibility = View.INVISIBLE
                 }
             })
 
@@ -213,17 +221,17 @@ class MyPackagePaymentConfirmActivity : AppCompatActivity(), PermissionListener 
         val db = FirebaseDatabase.getInstance().getReference("buktiPembayaran")
         val data = HashMap<String, Any>()
         data["imageUrl"] = uri
-        progressbar_package_confirm.visibility = View.VISIBLE
+
         db.child(token).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 db.child(token).child(time).setValue(data)
-                progressbar_package_confirm.visibility = View.INVISIBLE
+
                 Toast.makeText(applicationContext, "Bukti pembayaran telah diupload", Toast.LENGTH_LONG).show()
                 startActivity(Intent(this@MyPackagePaymentConfirmActivity, MainActivity::class.java))
             }
 
             override fun onCancelled(error: DatabaseError) {
-                progressbar_package_confirm.visibility = View.INVISIBLE
+
                 Toast.makeText(applicationContext, "gagal upload ke database", Toast.LENGTH_SHORT).show()
             }
 

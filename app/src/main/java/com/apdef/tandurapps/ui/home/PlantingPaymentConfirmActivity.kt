@@ -227,17 +227,14 @@ class PlantingPaymentConfirmActivity : AppCompatActivity(), PermissionListener {
         data["imageUrl"] = uri
 
 
-        progressbar_planting_payment.visibility = View.VISIBLE
         db.child(token).addValueEventListener(object :ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 db.child(token).child(time).setValue(data)
-                progressbar_planting_payment.visibility = View.INVISIBLE
                 Toast.makeText(applicationContext, "Bukti pembayaran telah diupload", Toast.LENGTH_LONG).show()
                 startActivity(Intent(this@PlantingPaymentConfirmActivity, MainActivity::class.java))
             }
 
             override fun onCancelled(error: DatabaseError) {
-                progressbar_planting_payment.visibility = View.INVISIBLE
                 Toast.makeText(applicationContext, "gagal upload ke database", Toast.LENGTH_SHORT).show()
             }
 
